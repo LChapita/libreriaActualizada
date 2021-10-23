@@ -38,7 +38,9 @@ stUsuario cargar_usuario()
             printf("\nIngrese otro nombre\n");
             fflush(stdin);
             gets(nombreUser);
-        }else{
+        }
+        else
+        {
             strcpy(usuario.nombreUsuario,nombreUser);
             conta=0;
         }
@@ -102,23 +104,9 @@ stUsuario cargar_usuario()
 
 }
 
-void guardar_usuario(stUsuario usuario)
+int login()
 {
-    FILE * archivoUsuario;
-    archivoUsuario=fopen(archivo_Usuarios,"a");
-    if(archivoUsuario!=NULL)
-    {
-        fwrite(&usuario,sizeof(stUsuario),1,archivoUsuario);
-        fclose(archivoUsuario);
-    }
-    else
-    {
-        printf("Error.\n");
-    }
-}
-
-int login(stUsuario usuario)
-{
+    stUsuario usuario;
     FILE * fusuario=fopen(archivo_Usuarios,"rb");
 
     char nomUser[50];
@@ -138,8 +126,8 @@ int login(stUsuario usuario)
 
     if((strcmp(nomUser,admi)==0) && (strcmp(pass,admi)==0))
     {
-    //printf("Bienvenido adminitrador %s.\n",admi);
-
+        //printf("Bienvenido adminitrador %s.\n",admi);
+        ///debe de ingresar al menu admi
         flag=1;
     }
     else
@@ -153,7 +141,7 @@ int login(stUsuario usuario)
                     if(usuario.validos==1)
                     {
                         iduser=usuario.id;
-                        //menu_login(iduser);
+                        menu_login(iduser);
                         flag=1;
                     }
                     else
@@ -182,6 +170,21 @@ int login(stUsuario usuario)
     return iduser;
 }
 
+void guardar_usuario(stUsuario usuario)
+{
+    FILE * archivoUsuario;
+    archivoUsuario=fopen(archivo_Usuarios,"a");
+    if(archivoUsuario!=NULL)
+    {
+        fwrite(&usuario,sizeof(stUsuario),1,archivoUsuario);
+        fclose(archivoUsuario);
+    }
+    else
+    {
+        printf("Error.\n");
+    }
+}
+
 void mostrar_mi_perfil(stUsuario usuario,int id)
 {
     FILE * archivoUsuario=fopen(archivo_Usuarios,"r");
@@ -203,6 +206,7 @@ void mostrar_mi_perfil(stUsuario usuario,int id)
         fclose(archivoUsuario);
     }
 }
+
 void mostrar_lista_usuarios()
 {
     stUsuario usuarios;
@@ -223,6 +227,7 @@ void mostrar_lista_usuarios()
     }
 
 }
+
 void darseBaja(stUsuario usuario,int id)
 {
     FILE * archivoUsuario=fopen(archivo_Usuarios,"r+b");
@@ -256,6 +261,7 @@ void darseBaja(stUsuario usuario,int id)
     }
 
 }
+
 int verificarNumeroUsuario(stUsuario usuario)
 {
     FILE * archivoUsuario=fopen(archivo_Usuarios,"r");
@@ -274,6 +280,7 @@ int verificarNumeroUsuario(stUsuario usuario)
 
     return num;
 }
+
 int verificar_Nombre_Usuario(stUsuario usuario,char nombre[])
 {
     FILE * archivoUsuario=fopen(archivo_Usuarios,"r");
@@ -292,4 +299,124 @@ int verificar_Nombre_Usuario(stUsuario usuario,char nombre[])
 
     return flag;
 }
+
+int buscarNumeroUsuario(stUsuario usuario)///en el archivo
+{
+    int idUsuario;
+    FILE * archivoUsuario=fopen(archivo_Usuarios,"r");
+    ///buscar en el archivo el numero de usuario que el usuario presione
+    int numUsuarioBusca;
+    int noExiste=0;
+    printf("Ingrese el numero del Usuario que desea buscar: ");
+    scanf("%d",&numUsuarioBusca);
+
+    if(archivoUsuario!=NULL)
+    {
+        while(fread(&usuario,sizeof(stUsuario),1,archivoUsuario)>0)
+        {
+            if(numUsuarioBusca == usuario.id)
+            {
+                printf("Este numero de Usuario esta registrado.\n");
+                mostrar_mi_perfil(usuario,usuario.id);
+
+                noExiste=1;
+                fclose(archivoUsuario);
+                idUsuario=usuario.id;
+            }
+
+        }
+        fclose(archivoUsuario);
+    }
+    if(noExiste==0)
+    {
+        printf("Este numero de Usuario NO se encuentra en el Archivo.\n");
+    }
+    return idUsuario;
+}
+
+void modificarUsuario(stUsuario usuario, int id)
+{
+
+    FILE * archivoUsuario=fopen(archivo_Usuarios,"r+b");
+    ///buscar el usuario y mantenerlo
+    int verdad;
+    int opcion;
+    int numUsuarioBusca;
+    char nuevoNombreYApellido[60];
+    char nuevoNombreUsuario[50];
+    int flag=0;
+
+
+    if(archivoUsuario!=NULL)
+    {
+        while(fread(&usuario,sizeof(stUsuario),1,archivoUsuario)>0)
+        {
+            if(id == usuario.id && flag==0)
+            {
+                ///entra como variable la opcion
+                ///la eleccion sera mediante un switch
+                CLEAN;
+                modificar_Usuario();
+                opcion=opcionModificar();
+
+                switch(opcion)
+                {
+                case 1:///nombre y apellido
+                    CLEAN;
+
+                    printf("Ingrese Nuevo Nombre y apellido:\n");
+                    fflush(stdin);
+                    gets(nuevoNombreYApellido);
+
+                    strcpy(usuario.nombreYapellido,nuevoNombreYApellido);
+
+                    fseek(archivoUsuario,sizeof(stUsuario)*-1,SEEK_CUR);
+                    fwrite(&usuario,sizeof(stUsuario),1,archivoUsuario);
+
+
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 2:///nombre usuario
+                    CLEAN;
+
+                    printf("Ingrese Nuevo Apellido:\n");
+                    fflush(stdin);
+                    gets(nuevoNombreUsuario);
+
+                    strcpy(usuario.nombreUsuario,nuevoNombreUsuario);
+
+                    fseek(archivoUsuario,sizeof(stUsuario)*-1,SEEK_CUR);
+                    fwrite(&usuario,sizeof(stUsuario),1,archivoUsuario);
+
+                    //rewind(archivoUsuario);
+
+                    ///copia el registro completo, lo modifica y pega
+
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 0:///salir
+
+                    flag=1;
+
+                    break;
+                }
+            }
+        }
+    }
+    fclose(archivoUsuario);
+
+}
+
+
+
+
+
+
+
+
+
 

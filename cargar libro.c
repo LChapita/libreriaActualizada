@@ -1,5 +1,5 @@
 #include "estructuras.h"
-/*
+
 void cargar_libro()
 {
     stLibro libros;
@@ -74,6 +74,20 @@ void cargar_libro()
 
     }
 }
+void guardar_libro(stLibro libros)
+{
+    FILE * archivoLibro;
+    archivoLibro=fopen(archivo_Libros,"a");
+    if(archivoLibro!=NULL)
+    {
+        fwrite(&libros,sizeof(stLibro),1,archivoLibro);
+        fclose(archivoLibro);
+    }
+    else
+    {
+        printf("Error.\n");
+    }
+}
 
 int verificar_autor(stLibro libros, char autor[])
 {
@@ -146,4 +160,170 @@ int verificar_numero_libro(stLibro libros)
 
     return num+1;
 }
-*/
+void mostrar_libro(stLibro libro)
+{
+    printf("Nombre del Libro : %s\n",libro.nombreLibro);
+    printf("Nombre de Autor  : %s\n",libro.autor);
+    printf("Genero del Libro : %s\n",libro.genero);
+    printf("Numero del Libro : %d\n",libro.numLibro);
+}
+void mostrar_todos_los_libros()
+{
+    stLibro libro;
+    FILE * archivoLibros;
+    archivoLibros=fopen(archivo_Libros,"r");
+
+    if(archivoLibros!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
+        {
+            mostrar_libro(libro);
+            printf("\n");
+        }
+    }
+    fclose(archivoLibros);
+}
+void bajalibros(stLibro libro,int idlibros)
+{
+    FILE * archivoLibros= fopen(archivo_Libros,"r+b");
+
+    if(archivoLibros!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
+        {
+            if(idlibros==libro.numLibro && libro.valida==1)
+            {
+                libro.valida=0;
+                fseek(archivoLibros,sizeof(stLibro)*-1,SEEK_CUR);
+                fwrite(&libro,sizeof(stLibro),1,archivoLibros);
+                printf("Se a dado de baja correctamente.\n");
+
+                fclose(archivoLibros);
+
+            }
+            else
+            {
+                printf("\nEl libro no existe.\n");
+            }
+        }
+        fclose(archivoLibros);
+    }
+
+}
+void modificarLibro(stLibro libro,int idlibro)
+{
+
+    FILE * fLibro=fopen(archivo_Libros,"r+b");
+
+    int opcion;
+
+    char nuevoNombre[50];
+    char nuevoAutor[50];
+    char nuevoGenero[50];
+
+    int flag=0;
+
+    if(fLibro!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,fLibro)>0)
+        {
+            if(idlibro == libro.numLibro && flag==0)
+            {
+                ///entra como variable la opcion
+                ///la eleccion sera mediante un switch
+                opcion=opcionModificarLibro();
+
+                switch(opcion)
+                {
+                case 1:///titulo;
+
+
+                    printf("Ingrese Nuevo Nombre:\n");
+                    fflush(stdin);
+                    gets(nuevoNombre);
+
+                    strcpy(libro.nombreLibro,nuevoNombre);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 2:///autor
+                    printf("Ingrese Nuevo Apellido:\n");
+                    fflush(stdin);
+                    gets(nuevoAutor);
+
+                    strcpy(libro.autor,nuevoAutor);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 3:///genero
+
+                    printf("Ingrese Nuevo mail:\n");
+                    fflush(stdin);
+                    gets(nuevoGenero);
+
+                    strcpy(libro.genero,nuevoGenero);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+                    flag=1;
+                    PAUSE;
+                    break;
+                }
+            }
+        }
+    }
+    fclose(fLibro);
+}
+int buscarNumeroLibro(stLibro libro)
+{
+    int idlibro;
+
+    FILE * archLibro=fopen(archivo_Libros,"r");
+
+    ///buscar en el archivo el numero de usuario que el usuario presione
+    int numlibroBusca;
+    int noExiste=0;
+
+    printf("Ingrese el numero del Libro que desea buscar: ");
+    scanf("%d",&numlibroBusca);
+
+    if(archLibro!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,archLibro)>0)
+        {
+            if(numlibroBusca == libro.numLibro)
+            {
+
+                printf("Este numero de Libro esta registrado.\n");
+                mostrar_libro(libro);
+                noExiste=1;
+                idlibro=libro.numLibro;
+                fclose(archLibro);
+            }
+
+        }
+        fclose(archLibro);
+    }
+    if(noExiste==0)
+    {
+        printf("Este numero de Usuario NO se encuentra en el Archivo.\n");
+    }
+    return idlibro;
+}
+
+
+
+
+

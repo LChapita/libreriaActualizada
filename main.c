@@ -4,7 +4,16 @@
 
 int main()
 {
+    ///menuInicio();
     //cargar_usuario();
-    mostrar_lista_usuarios();
+    //mostrar_lista_usuarios();
+    //cargar_libro();
+    //mostrar_todos_los_libros();
+//    int id;
+//    id=login();
+//
+
+    //funcion();
+
     return 0;
 }

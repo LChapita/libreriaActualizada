@@ -31,6 +31,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Favoritos.h" />
+		<Unit filename="Libro.h" />
+		<Unit filename="Usuario.h" />
+		<Unit filename="arboles.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="arboles.h" />
+		<Unit filename="carga favoritos.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="cargar libro.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -38,16 +48,17 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="estructuras.h" />
-		<Unit filename="funciones.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="lista.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="lista.h" />
 		<Unit filename="main Menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menus.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="utiles.c">
