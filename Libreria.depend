@@ -4,7 +4,7 @@
 	<stdlib.h>
 	<windows.h>
 
-1635030657 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main.c
+1635132515 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main.c
 	<stdio.h>
 	<stdlib.h>
 	"estructuras.h"
@@ -14,7 +14,7 @@
 
 1634444723 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\funciones.c
 
-1635028409 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar libro.c
+1635134019 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar libro.c
 	"estructuras.h"
 
 1635030470 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\estructuras.h
@@ -31,10 +31,10 @@
 
 1620939241 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\utiles.h
 
-1635026357 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar usuario.c
+1635134782 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar usuario.c
 	"estructuras.h"
 
-1635030470 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.c
+1635134661 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.c
 	"estructuras.h"
 
 1635028519 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\menus.c
@@ -43,11 +43,19 @@
 1635029940 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\carga favoritos.c
 	"estructuras.h"
 
-1635029174 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\usuario.h
+1635133780 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\usuario.h
 
 1635029185 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\libro.h
 
 1635029264 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\favoritos.h
 
-1635030470 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.h
+1635134077 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.h
+
+1635024260 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.c
+	"arboles.h"
+
+1635024213 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
 

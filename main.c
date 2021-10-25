@@ -14,6 +14,7 @@ int main()
 //
 
     //funcion();
+    pruebaUsuario();
 
     return 0;
 }

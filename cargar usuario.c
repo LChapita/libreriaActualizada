@@ -1,6 +1,6 @@
 #include "estructuras.h"
 
-stUsuario cargar_usuario()
+void cargar_usuario()
 {
     stUsuario usuario;
 
@@ -184,7 +184,16 @@ void guardar_usuario(stUsuario usuario)
         printf("Error.\n");
     }
 }
+void mostrar_usuario(stUsuario usuario)
+{
+    printf("NOMBRE y APELLIDO:    %s\n",usuario.nombreYapellido);
+    printf("NOMBRE USUARIO:       %s\n",usuario.nombreUsuario);
+    printf("ID USER:              %d\n",usuario.id);
+    printf("PASSWORD:             %s\n",usuario.contrasenia);
+    printf("ALTA:                 %d\n",usuario.validos);
+    printf("\n");
 
+}
 void mostrar_mi_perfil(stUsuario usuario,int id)
 {
     FILE * archivoUsuario=fopen(archivo_Usuarios,"r");
@@ -206,6 +215,7 @@ void mostrar_mi_perfil(stUsuario usuario,int id)
         fclose(archivoUsuario);
     }
 }
+
 
 void mostrar_lista_usuarios()
 {
@@ -247,7 +257,7 @@ void darseBaja(stUsuario usuario,int id)
                     fseek(archivoUsuario,sizeof(stUsuario)*-1,SEEK_CUR);
                     fwrite(&usuario,sizeof(stUsuario),1,archivoUsuario);
                     bandera=1;
-                    fclose(archivoUsuario);
+
                 }
             }
 
@@ -413,8 +423,40 @@ void modificarUsuario(stUsuario usuario, int id)
 
 
 
+NodoUsuario * pasar_archivo_lista_Usuarios(stUsuario usuario,NodoUsuario * lista)
+{
+    FILE * archUsuario=fopen(archivo_Usuarios,"r");
+
+    if(archUsuario!=NULL)
+    {
+        while(fread(&usuario,sizeof(stUsuario),1,archUsuario)>0)
+        {
+            lista=agregar_al_principio_usuario(lista,crearNodoUsuario(usuario));
+        }
+        fclose(archUsuario);
+    }
+
+    return lista;
+}
+
+int pruebaUsuario()
+{
+    stUsuario usuario;
+    NodoUsuario * lista;
+    lista=inicListaUsuario();
+
+    lista=pasar_archivo_lista_Usuarios(usuario,lista);
 
 
+    //mostrarNodos_Usuario(lista);
+    PAUSE;
+    CLEAN;
+
+    darseBaja(usuario,1);
+    mostrarNodos_Usuario_validos(lista);
+
+    return 0;
+}
 
 
 

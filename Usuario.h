@@ -11,7 +11,7 @@ typedef struct
 }stUsuario;
 
 
-stUsuario cargar_usuario();
+void cargar_usuario();
 
 int login();
 

@@ -73,6 +73,7 @@ void cargar_libro()
 
 
     }
+
 }
 void guardar_libro(stLibro libros)
 {
@@ -167,22 +168,22 @@ void mostrar_libro(stLibro libro)
     printf("Genero del Libro : %s\n",libro.genero);
     printf("Numero del Libro : %d\n",libro.numLibro);
 }
-void mostrar_todos_los_libros()
-{
-    stLibro libro;
-    FILE * archivoLibros;
-    archivoLibros=fopen(archivo_Libros,"r");
-
-    if(archivoLibros!=NULL)
-    {
-        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
-        {
-            mostrar_libro(libro);
-            printf("\n");
-        }
-    }
-    fclose(archivoLibros);
-}
+////void mostrar_todos_los_libros()
+////{
+////    stLibro libro;
+////    FILE * archivoLibros;
+////    archivoLibros=fopen(archivo_Libros,"r");
+////
+////    if(archivoLibros!=NULL)
+////    {
+////        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
+////        {
+////            mostrar_libro(libro);
+////            printf("\n");
+////        }
+////    }
+////    fclose(archivoLibros);
+////}
 void bajalibros(stLibro libro,int idlibros)
 {
     FILE * archivoLibros= fopen(archivo_Libros,"r+b");
@@ -326,4 +327,31 @@ int buscarNumeroLibro(stLibro libro)
 
 
 
+NodoLibro * pasar_archivo_lista_Libros(stLibro libro,NodoLibro *lista)
+{
+    FILE * archLibro=fopen(archivo_Libros,"r");
+
+    if(archLibro!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,archLibro)>0)
+        {
+            lista=agregar_al_principio_libro(lista,crearNodoLibro(libro));
+        }
+        fclose(archLibro);
+    }
+
+    return lista;
+}
+
+int pruebalibro()
+{
+    stLibro libro;
+    NodoLibro * lista;
+    lista=inicListaLibro();
+
+    lista=pasar_archivo_lista_Libros(libro,lista);
+    mostrarNodos_Libros(lista);
+
+    return 0;
+}
 

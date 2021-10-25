@@ -5,25 +5,51 @@ typedef struct
 {
     stUsuario datos;
     struct Nodo*siguiente;
-}Nodo;
+}NodoUsuario;
 
-Nodo * inicLista();
+typedef struct
+{
+    stLibro datos;
+    struct Nodo*siguiente;
+}NodoLibro;
 
-Nodo * crearNodo(stUsuario user);
+///nodos usuarios
+NodoUsuario * inicListaUsuario();
 
-void mostrarNodos(Nodo * lista);
+NodoUsuario * crearNodoUsuario(stUsuario user);
 
-void mostrarUnNodo(Nodo * seg);
+void mostrarNodos_Usuario(NodoUsuario * lista);
 
-Nodo* agregar_al_principio(Nodo *lista, Nodo *nuevoNodo);
+void mostrarUnNodo_Usuario(NodoUsuario * seg);
 
-Nodo * buscar_el_ultimo(Nodo * lista);
+NodoUsuario * agregar_al_principio_usuario(NodoUsuario *lista, NodoUsuario *nuevoNodo);
 
-Nodo * agregar_al_final(Nodo * lista, Nodo * nuevoNodo);
+NodoUsuario * buscar_el_ultimo_libro_usuario(NodoUsuario * lista);
 
-Nodo * borrarPrimerNodo(Nodo * lista);
+NodoUsuario * agregar_al_final_usuario(NodoUsuario * lista, NodoUsuario * nuevoNodo);
 
-Nodo * borrarUltimoNodo(Nodo * lista);
+NodoUsuario * borrarPrimerNodo_usuario(NodoUsuario * lista);
+
+NodoUsuario * borrarUltimoNodo_usuario(NodoUsuario * lista);
+
+///nodo listas
+NodoLibro * inicListaLibro();
+
+NodoLibro * crearNodoLibro(stLibro libro);
+
+void mostrarNodos_Libros(NodoLibro * lista);
+
+void mostrarUnNodo_Libro(NodoLibro * seg);
+
+NodoLibro * agregar_al_principio_libro(NodoLibro * lista, NodoLibro * nuevoNodo);
+
+NodoLibro * buscar_el_ultimo_libro(NodoLibro * lista);
+
+NodoLibro * agregar_al_final_libro(NodoLibro * lista, NodoLibro * nuevoNodo);
+
+NodoLibro * borrarPrimerNodo_libro(NodoLibro * lista);
+
+NodoLibro * borrarUltimoNodo_libro(NodoLibro * lista);
 
 
 
