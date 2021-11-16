@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1634083017 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main menu.c
+1637033413 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main menu.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
+	"estructuras.h"
 
-1635132515 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main.c
+1637092941 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\main.c
 	<stdio.h>
 	<stdlib.h>
 	"estructuras.h"
@@ -14,10 +15,10 @@
 
 1634444723 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\funciones.c
 
-1635134019 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar libro.c
+1637092323 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar libro.c
 	"estructuras.h"
 
-1635030470 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\estructuras.h
+1636951330 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\estructuras.h
 	<stdio.h>
 	<stdlib.h>
 	"time.h"
@@ -28,34 +29,41 @@
 	"Libro.h"
 	"Favoritos.h"
 	"lista.h"
+	"arboles.h"
+	"Celdas.h"
 
 1620939241 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\utiles.h
 
-1635134782 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar usuario.c
+1637094849 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\cargar usuario.c
 	"estructuras.h"
 
-1635134661 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.c
+1637088126 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.c
 	"estructuras.h"
 
-1635028519 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\menus.c
+1637094822 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\menus.c
 	"estructuras.h"
 
-1635029940 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\carga favoritos.c
+1637092052 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\carga favoritos.c
 	"estructuras.h"
 
-1635133780 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\usuario.h
+1637090432 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\usuario.h
 
-1635029185 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\libro.h
+1637092341 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\libro.h
 
-1635029264 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\favoritos.h
+1637033062 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\favoritos.h
+	"estructuras.h"
 
-1635134077 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.h
+1636952636 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\lista.h
 
-1635024260 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.c
+1637027458 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.c
 	"arboles.h"
 
-1635024213 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.h
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
+1637020751 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\arboles.h
+	"estructuras.h"
+
+1637089841 source:f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\celdas.c
+	"Celdas.h"
+
+1636952470 f:\anterior pc\segundo cuatrimestre\programacion 2\libreria\celdas.h
+	"estructuras.h"
 

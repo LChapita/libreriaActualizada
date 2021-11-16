@@ -24,5 +24,9 @@
 #include "Favoritos.h"
 
 #include "lista.h"
+#include "arboles.h"
+
+
+#include "Celdas.h"
 
 #endif // ESTRUCTURAS_H_INCLUDED

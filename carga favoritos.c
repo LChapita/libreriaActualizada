@@ -1,6 +1,6 @@
 #include "estructuras.h"
 
-void favorito_archivo(int id,stFavoritos favorito,stLibro libro)
+void cargar_favoritos(int id,stFavoritos favorito,stLibro libro)
 {
     FILE * archlibro=fopen(archivo_Libros,"r+b");
 
@@ -13,13 +13,13 @@ void favorito_archivo(int id,stFavoritos favorito,stLibro libro)
 
     existe=verificar_favorito(favorito,id,numlibro);
 
-    if(archlibro!=NULL)
+    if(archlibro!=NULL)///arreglar
     {
         while(fread(&libro,sizeof(stLibro),1,archlibro)>0 && flag==0)
         {
 
 
-            if(numlibro==libro.numLibro)///si existe el libro
+            if(numlibro==libro.numLibro && libro.valida==1)///si existe el libro
             {
 
                 if(existe==0) ///si esta dentro de favoritos sino se guarda
@@ -62,7 +62,7 @@ int verificar_favorito(stFavoritos favorito,int id,int numerolibro)
         {
             if(id==favorito.id)
             {
-                if(numerolibro==favorito.id)
+                if(numerolibro==favorito.misFavoritos.numLibro)
                 {
                     flag=0;
                     existe=1;
@@ -76,7 +76,50 @@ int verificar_favorito(stFavoritos favorito,int id,int numerolibro)
     return existe;
 }
 
-///funcion guardar
+void baja_de_Fav_por_libros(stFavoritos fav,int idlibros)
+{
+    int conta;
+    conta=contador(fav,idlibros);
+    int flag=0;
+    FILE * archFav= fopen(archivo_Favoritos,"r+b");
+
+    if(archFav!=NULL)
+    {
+        while(fread(&fav,sizeof(stFavoritos),1,archFav)>0 && flag!=conta)
+        {
+            if(fav.misFavoritos.numLibro == idlibros)
+            {
+                fav.misFavoritos.valida=0;
+                fseek(archFav,sizeof(stFavoritos)*-1,SEEK_SET);
+                fwrite(&fav,sizeof(stFavoritos),1,archFav);
+                flag++;
+
+            }
+        }
+        fclose(archFav);
+    }
+    //printf("se dio de baja en fav");
+
+}
+int contador(stFavoritos fav,int idlibros)
+{
+    int conta=0;
+    FILE * archFav= fopen(archivo_Favoritos,"rb");
+
+    if(archFav!=NULL)
+    {
+        while(fread(&fav,sizeof(stFavoritos),1,archFav)>0)
+        {
+            if(fav.misFavoritos.numLibro == idlibros)
+            {
+                conta++;
+            }
+        }
+        fclose(archFav);
+    }
+    //printf("se dio de baja en fav");
+    return conta;
+}
 void guardar_favoritos(stFavoritos favoritos)
 {
     FILE * archFavoritos;
@@ -92,21 +135,14 @@ void guardar_favoritos(stFavoritos favoritos)
     }
 }
 
-//void mostrar_libro_favorito(stFavoritos favorito)
-//{
-//    printf("Nombre del Libro : %s\n",favoritomisFavoritos);
-//    printf("Nombre de Autor  : %s\n",favorito.autorFav);
-//    printf("Genero del Libro : %s\n",favorito.generoFav);
-//    printf("Numero del Libro : %d\n",favorito.numeroLibro);
-//}
 void mostrar_mis_favoritos(stFavoritos favorito,int id)
 {
     FILE * archfavoritos;
     archfavoritos=fopen(archivo_Favoritos,"r");
 
-    int x=13;
-    int y=8;
-   //listaFavoritos();
+    //int x=13;
+    //int y=8;
+    //listaFavoritos();
     if(archfavoritos!=NULL)
     {
 
@@ -127,15 +163,98 @@ void mostrar_mis_favoritos(stFavoritos favorito,int id)
 
             }
         }
-        gotoxy(8,30);
+        //gotoxy(8,30);
         fclose(archfavoritos);
     }
 }
 
-int funcion(){///funcion de prueba
-    stFavoritos fav;
-    stLibro lib;
-    favorito_archivo(1,fav,lib);
-    mostrar_mis_favoritos(fav,1);
 
-return 0;}
+
+void modificar_favoritos_Titulo(stFavoritos fav,int idLibro,char nuevoTitulo[])
+{
+
+    FILE * arFav=fopen(archivo_Favoritos,"r+b");
+
+    if(arFav!=NULL)
+    {
+        while(fread(&fav,sizeof(stFavoritos),1,arFav)>0)
+        {
+            if(fav.misFavoritos.numLibro==idLibro)
+            {
+
+                strcpy(fav.misFavoritos.nombreLibro,nuevoTitulo);
+
+                fseek(arFav,sizeof(stFavoritos)*-1,SEEK_CUR);
+                fwrite(&fav,sizeof(stFavoritos),1,arFav);
+                fclose(arFav);
+
+            }
+        }
+        fclose(arFav);
+    }
+}
+
+void modificar_favoritos_Autor(stFavoritos fav,int idLibro,char nuevoAutor[])
+{
+
+    FILE * arFav=fopen(archivo_Favoritos,"r+b");
+
+    if(arFav!=NULL)
+    {
+        while(fread(&fav,sizeof(stFavoritos),1,arFav)>0)
+        {
+            if(fav.misFavoritos.numLibro==idLibro)
+            {
+
+                strcpy(fav.misFavoritos.autor,nuevoAutor);
+
+                fseek(arFav,sizeof(stFavoritos)*-1,SEEK_CUR);
+                fwrite(&fav,sizeof(stFavoritos),1,arFav);
+                fclose(arFav);
+
+            }
+        }
+        fclose(arFav);
+    }
+}
+
+void modificar_favoritos_Genero(stFavoritos fav,int idLibro,char nuevoGenero[])
+{
+
+    FILE * arFav=fopen(archivo_Favoritos,"r+b");
+
+    if(arFav!=NULL)
+    {
+        while(fread(&fav,sizeof(stFavoritos),1,arFav)>0)
+        {
+            if(fav.misFavoritos.numLibro==idLibro)
+            {
+
+                strcpy(fav.misFavoritos.genero,nuevoGenero);
+
+                fseek(arFav,sizeof(stFavoritos)*-1,SEEK_CUR);
+                fwrite(&fav,sizeof(stFavoritos),1,arFav);
+                fclose(arFav);
+
+            }
+        }
+        fclose(arFav);
+    }
+}
+
+
+
+
+
+
+
+
+void mostrar_Lista_Favoritos(int id)
+{
+    stFavoritos fav;
+    NodoFavoritos * lista;
+    lista=inicListaFav();
+    lista=pasar_archivo_Favoritos_a_lista(lista);
+    listaFavoritos();
+    mostrarNodos_Fav_Mios(lista,id);
+}

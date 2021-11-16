@@ -1,6 +1,6 @@
 
 ///funciones usuario
-/*
+
 
 void cargar_usuario()
 {
@@ -1686,4 +1686,4 @@ void menu_favoritos(int id)
     }
     while (opcion != 0);
 }
-*/
+

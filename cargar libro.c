@@ -163,135 +163,41 @@ int verificar_numero_libro(stLibro libros)
 }
 void mostrar_libro(stLibro libro)
 {
-    printf("Nombre del Libro : %s\n",libro.nombreLibro);
-    printf("Nombre de Autor  : %s\n",libro.autor);
-    printf("Genero del Libro : %s\n",libro.genero);
-    printf("Numero del Libro : %d\n",libro.numLibro);
+    printf(" %s ",libro.nombreLibro);
+    printf(" %s",libro.autor);
+    printf(" %s",libro.genero);
+    printf(" %d",libro.numLibro);
 }
-////void mostrar_todos_los_libros()
-////{
-////    stLibro libro;
-////    FILE * archivoLibros;
-////    archivoLibros=fopen(archivo_Libros,"r");
-////
-////    if(archivoLibros!=NULL)
-////    {
-////        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
-////        {
-////            mostrar_libro(libro);
-////            printf("\n");
-////        }
-////    }
-////    fclose(archivoLibros);
-////}
 void bajalibros(stLibro libro,int idlibros)
 {
     FILE * archivoLibros= fopen(archivo_Libros,"r+b");
-
+    int flag=0;
     if(archivoLibros!=NULL)
     {
-        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0)
+        while(fread(&libro,sizeof(stLibro),1,archivoLibros)>0 && flag==0)
         {
-            if(idlibros==libro.numLibro && libro.valida==1)
+            if(libro.numLibro==idlibros && libro.valida==1 && flag==0)
             {
                 libro.valida=0;
                 fseek(archivoLibros,sizeof(stLibro)*-1,SEEK_CUR);
                 fwrite(&libro,sizeof(stLibro),1,archivoLibros);
                 printf("Se a dado de baja correctamente.\n");
 
+                //printf("esto termina\n");
+                flag=1;
                 fclose(archivoLibros);
+            }
 
-            }
-            else
-            {
-                printf("\nEl libro no existe.\n");
-            }
         }
         fclose(archivoLibros);
     }
 
 }
-void modificarLibro(stLibro libro,int idlibro)
-{
-
-    FILE * fLibro=fopen(archivo_Libros,"r+b");
-
-    int opcion;
-
-    char nuevoNombre[50];
-    char nuevoAutor[50];
-    char nuevoGenero[50];
-
-    int flag=0;
-
-    if(fLibro!=NULL)
-    {
-        while(fread(&libro,sizeof(stLibro),1,fLibro)>0)
-        {
-            if(idlibro == libro.numLibro && flag==0)
-            {
-                ///entra como variable la opcion
-                ///la eleccion sera mediante un switch
-                opcion=opcionModificarLibro();
-
-                switch(opcion)
-                {
-                case 1:///titulo;
-
-
-                    printf("Ingrese Nuevo Nombre:\n");
-                    fflush(stdin);
-                    gets(nuevoNombre);
-
-                    strcpy(libro.nombreLibro,nuevoNombre);
-
-                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
-                    fwrite(&libro,sizeof(stLibro),1,fLibro);
-
-
-                    flag=1;
-                    PAUSE;
-                    break;
-
-                case 2:///autor
-                    printf("Ingrese Nuevo Apellido:\n");
-                    fflush(stdin);
-                    gets(nuevoAutor);
-
-                    strcpy(libro.autor,nuevoAutor);
-
-                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
-                    fwrite(&libro,sizeof(stLibro),1,fLibro);
-
-                    flag=1;
-                    PAUSE;
-                    break;
-
-                case 3:///genero
-
-                    printf("Ingrese Nuevo mail:\n");
-                    fflush(stdin);
-                    gets(nuevoGenero);
-
-                    strcpy(libro.genero,nuevoGenero);
-
-                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
-                    fwrite(&libro,sizeof(stLibro),1,fLibro);
-
-                    flag=1;
-                    PAUSE;
-                    break;
-                }
-            }
-        }
-    }
-    fclose(fLibro);
-}
 int buscarNumeroLibro(stLibro libro)
 {
-    int idlibro;
+    int idlibro=0;
 
-    FILE * archLibro=fopen(archivo_Libros,"r");
+    FILE * archLibro=fopen(archivo_Libros,"rb");
 
     ///buscar en el archivo el numero de usuario que el usuario presione
     int numlibroBusca;
@@ -302,16 +208,16 @@ int buscarNumeroLibro(stLibro libro)
 
     if(archLibro!=NULL)
     {
-        while(fread(&libro,sizeof(stLibro),1,archLibro)>0)
+        while(fread(&libro,sizeof(stLibro),1,archLibro)>0 && noExiste==0)
         {
             if(numlibroBusca == libro.numLibro)
             {
 
                 printf("Este numero de Libro esta registrado.\n");
-                mostrar_libro(libro);
+                mostrar_libro_EnlaBusqueda(libro);
                 noExiste=1;
                 idlibro=libro.numLibro;
-                fclose(archLibro);
+                //fclose(archLibro);
             }
 
         }
@@ -319,39 +225,194 @@ int buscarNumeroLibro(stLibro libro)
     }
     if(noExiste==0)
     {
-        printf("Este numero de Usuario NO se encuentra en el Archivo.\n");
+        printf("Este numero de Libro NO se encuentra en el Archivo.\n");
     }
     return idlibro;
 }
 
 
-
-
-NodoLibro * pasar_archivo_lista_Libros(stLibro libro,NodoLibro *lista)
-{
-    FILE * archLibro=fopen(archivo_Libros,"r");
-
-    if(archLibro!=NULL)
-    {
-        while(fread(&libro,sizeof(stLibro),1,archLibro)>0)
-        {
-            lista=agregar_al_principio_libro(lista,crearNodoLibro(libro));
-        }
-        fclose(archLibro);
-    }
-
-    return lista;
-}
-
-int pruebalibro()
+void muestraListaLibrosVal()
 {
     stLibro libro;
     NodoLibro * lista;
     lista=inicListaLibro();
 
     lista=pasar_archivo_lista_Libros(libro,lista);
-    mostrarNodos_Libros(lista);
-
-    return 0;
+    listaLibros();
+    mostrarNodos_Libros_Validos(lista);
 }
+void muestraListaLibros()
+{
+    stLibro libro;
+    NodoLibro * lista;
+    lista=inicListaLibro();
+
+    lista=pasar_archivo_lista_Libros(libro,lista);
+    listaLibros();
+    mostrarNodos_Libros(lista);
+}
+
+///modificar libro
+
+void modificarLibro(stLibro libro,int idlibro)///modificar para que quede bien
+{
+
+    stFavoritos fav;
+
+    FILE * fLibro=fopen(archivo_Libros,"r+b");
+
+    int opcion;
+
+    char nuevoTitulo[50];
+    char nuevoAutor[50];
+    char nuevoGenero[50];
+
+    int flag=0;
+
+    if(fLibro!=NULL)
+    {
+        while(fread(&libro,sizeof(stLibro),1,fLibro)>0 && flag ==0)
+        {
+            if(idlibro == libro.numLibro && flag==0)
+            {
+                mostrar_libro_EnlaBusqueda(libro);
+                ///entra como variable la opcion
+                ///la eleccion sera mediante un switch
+                menu_Modificar_opcion();
+                opcion=opcionModificarLibro();
+
+                switch(opcion)
+                {
+                case 1:///titulo;
+
+
+                    printf("Ingrese Nuevo Titulo:\n");
+                    fflush(stdin);
+                    gets(nuevoTitulo);
+
+                    strcpy(libro.nombreLibro,nuevoTitulo);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+                    modificar_favoritos_Titulo(fav,idlibro,nuevoTitulo);
+                    fclose(fLibro);
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 2:///autor
+                    printf("Ingrese Nuevo Autor:\n");
+                    fflush(stdin);
+                    gets(nuevoAutor);
+
+                    strcpy(libro.autor,nuevoAutor);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+                    modificar_favoritos_Autor(fav,idlibro,nuevoAutor);
+                    fclose(fLibro);
+                    flag=1;
+                    PAUSE;
+                    break;
+
+                case 3:///genero
+
+                    printf("Ingrese Nuevo Genero:\n");
+                    fflush(stdin);
+                    gets(nuevoGenero);
+
+                    strcpy(libro.genero,nuevoGenero);
+
+                    fseek(fLibro,sizeof(stLibro)*-1,SEEK_CUR);
+                    fwrite(&libro,sizeof(stLibro),1,fLibro);
+
+                    modificar_favoritos_Genero(fav,idlibro,nuevoGenero);
+                    fclose(fLibro);
+                    flag=1;
+                    PAUSE;
+                    break;
+                }
+            }
+        }
+        fclose(fLibro);
+    }
+
+    if(flag==1)
+    {
+        printf("Se ha modificado con exito.\n");
+        printf("Recuerde que si modifica el libro tambien se modifica en En el Archivo de Favoritos.\n");
+        PAUSE;
+    }
+}
+
+void invocar_modificacion_libroYfavoritos()
+{
+    stLibro libro;
+    int idlibro=0;
+
+    idlibro=buscarNumeroLibro(libro);
+
+    char control='s';
+
+    if(idlibro>0)
+    {
+        gotoxy(8,20);
+        printf("Esta seguro que quiere Modificar este libro.s/n\n");
+
+        fflush(stdin);
+        gotoxy(8,21);
+        scanf("%c",&control);
+
+        if(control=='s')
+        {
+            CLEAN;
+            modificarLibro(libro,idlibro);
+        }
+    }
+
+}
+
+void mostrar_libro_EnlaBusqueda(stLibro libro)
+{
+    ver_libro_enBusqueda();
+    gotoxy (20,7);
+    printf(" %s",libro.nombreLibro);
+    gotoxy (20,11);
+    printf(" %s",libro.autor);
+    gotoxy (20,15);
+    printf(" %s",libro.genero);
+
+}
+
+
+void darBaja_en_libros_comoEn_Fav(stLibro libro)
+{
+    stFavoritos fav;
+    int idlibro=0;
+
+    idlibro=buscarNumeroLibro(libro);
+
+    char control='s';
+
+    if(idlibro>0)
+    {
+        gotoxy(8,20);
+        printf("Esta seguro que quiere Dar de Baja este libro.s/n\n");
+
+        fflush(stdin);
+        gotoxy(8,21);
+        scanf("%c",&control);
+
+        if(control=='s')
+        {
+            CLEAN;
+            bajalibros(libro,idlibro);
+            PAUSE;
+            baja_de_Fav_por_libros(fav,idlibro);
+        }
+    }
+}
+
 

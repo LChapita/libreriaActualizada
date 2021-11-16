@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Celdas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Celdas.h" />
 		<Unit filename="Favoritos.h" />
 		<Unit filename="Libro.h" />
 		<Unit filename="Usuario.h" />

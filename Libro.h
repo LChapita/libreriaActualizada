@@ -13,7 +13,7 @@ typedef struct
 
 void cargar_libro();
 
-void cargar_libro();
+void guardar_libro(stLibro libros);
 
 int verificar_autor(stLibro libros, char autor[]);
 
@@ -25,13 +25,16 @@ int verificar_numero_libro(stLibro libros);
 
 void mostrar_libro(stLibro libro);
 
-void mostrar_todos_los_libros();
-
 void bajalibros(stLibro libro,int idlibros);
-
-void modificarLibro(stLibro libro,int idlibro);
 
 int buscarNumeroLibro(stLibro libro);
 
+void modificarLibro(stLibro libro,int idlibro);
+
+void invocar_modificacion_libroYfavoritos();
+
+void mostrar_libro_EnlaBusqueda(stLibro libro);
+
+void darBaja_en_libros_comoEn_Fav(stLibro libro);
 
 #endif // TDA_LIBRO_H_INCLUDED

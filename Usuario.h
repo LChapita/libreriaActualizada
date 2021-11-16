@@ -8,6 +8,7 @@ typedef struct
     int id;///
     char contrasenia[10];///
     int validos;
+
 }stUsuario;
 
 
@@ -19,14 +20,16 @@ void guardar_usuario(stUsuario usuario);
 
 void mostrar_mi_perfil(stUsuario usuario,int id);
 
-void mostrar_lista_usuarios();
-
 void darseBaja(stUsuario usuario,int id);
 
 int verificarNumeroUsuario(stUsuario usuario);
 
 int verificar_Nombre_Usuario(stUsuario usuario,char nombre[]);
 
-int buscarNumeroUsuario(stUsuario usuario);///en el archivo
+int buscarNumeroUsuario(stUsuario usuario,int idUsuario);///en el archivo
+
+void modificarUsuario(stUsuario usuario, int id);
+
+void mostrarListaUsuarios();
 
 #endif // TDA_USUARIO_H_INCLUDED

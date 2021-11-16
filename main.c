@@ -4,17 +4,24 @@
 
 int main()
 {
-    ///menuInicio();
-    //cargar_usuario();
-    //mostrar_lista_usuarios();
-    //cargar_libro();
-    //mostrar_todos_los_libros();
-//    int id;
-//    id=login();
-//
+    //invocar_modificacion_libroYfavoritos();
+    //muestraListaLibros();
+//    dar_baja_admi();
+////    CLEAN;
+////    PAUSE;
+//    //mostrarListaUsuarios();
+//    PAUSE;
+//        CLEAN;
 
-    //funcion();
-    pruebaUsuario();
+    //mostrarListaFavortiosEC();
+//    PAUSE;
+//    CLEAN;
 
+//    stFavoritos fav;
+//    printf("esto es contador %d",contador(fav,8));
+    menuInicio();
+    //invocar_arbol(1);
+    //mostrar_Lista_Favoritos(1);
     return 0;
 }
+

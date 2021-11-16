@@ -1,34 +1,30 @@
 #ifndef ARBOLES_H_INCLUDED
 #define ARBOLES_H_INCLUDED
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+#include "estructuras.h"
 
 typedef struct
 {
-    int numLibro;
-    char autor[30];
-    char nombreLibro[50];
-    char genero[30];
-    int valida;
-}stLibro;
-typedef struct
-{
-    stLibro dato;
-    struct nodoArbol * izquierda;
-    struct nodoArbol * derecha;
+    stFavoritos dato;
+    struct nodoArbolFavoritos * izquierda;
+    struct nodoArbolFavoritos * derecha;
 
-}nodoArbolLibro;
+}nodoArbolFavoritos;
 
 
 
-nodoArbolLibro * inicArbol();
-nodoArbolLibro * crearNodoArbol(stLibro dato);
-nodoArbolLibro * insertar(nodoArbolLibro * arbol,stLibro dato);
-void mostrarUnLibroArbol(stLibro dato);
-void preorder(nodoArbolLibro * arbol);
-void inorder(nodoArbolLibro * arbol);
-void postorder(nodoArbolLibro * arbol);
-nodoArbolLibro* buscar(nodoArbolLibro * arbol,stLibro dato);
+nodoArbolFavoritos * inicArbol();
+nodoArbolFavoritos * crearNodoArbol(stFavoritos dato);
+nodoArbolFavoritos * insertarEnArbol(nodoArbolFavoritos * arbol,stFavoritos dato);
+void mostrarUnLibroArbol(stFavoritos dato);
+
+void preorder(nodoArbolFavoritos * arbol);
+void inorder(nodoArbolFavoritos * arbol);
+void postorder(nodoArbolFavoritos * arbol);
+
+nodoArbolFavoritos* buscar(nodoArbolFavoritos * arbol,stFavoritos dato);
+void mostrar_libro_favorito(stFavoritos favorito,int y);
+
+nodoArbolFavoritos * pasar_archivo_Favoritos_a_arbol(stFavoritos favorit,nodoArbolFavoritos * arbol,int iduser);
 
 #endif // ARBOLES_H_INCLUDED
